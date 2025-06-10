@@ -1,21 +1,22 @@
 {
-  "name": "shoppingcart",
+  "name": "e-plantshopping",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build",  <-- Make sure this line is exactly here
+    "deploy": "gh-pages -d dist",   <-- And this line is exactly here
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite build; vite preview --host"
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^9.1.1"
+    "react-redux": "^9.1.2",
+    "redux": "^5.0.1",
+    "@reduxjs/toolkit": "^2.2.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
