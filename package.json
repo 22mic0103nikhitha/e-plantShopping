@@ -3,11 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
- "scripts": {
+"scripts": {
     "dev": "vite",
     "predeploy": "npm run build",  <-- ADD THIS LINE
     "deploy": "gh-pages -d dist",   <-- ADD THIS LINE
-    "build": "vite build",         <-- Make sure there's a comma here if it's not the last line
+    "build": "vite build",         <-- ENSURE A COMMA IS HERE IF IT'S NOT THE LAST SCRIPT
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite build; vite preview --host"
   },
