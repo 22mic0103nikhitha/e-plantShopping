@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import ProductList from './ProductList';
-import CartItems from './CartItems'; // Import CartItems component
-import { useSelector } from 'react-redux'; // Import useSelector to get total items for icon (optional)
+import CartItems from './CartItems'; // Ensure this import path is correct
+import { useSelector } from 'react-redux'; // Import useSelector for cart item count
 
-// Basic CSS for demonstration - you'll likely have this in App.css
-import './App.css'; 
+// Basic CSS for demonstration - make sure you have this or similar in your App.css
+import './App.css'; // Assuming your general styles are here
 
 function App() {
   // State to control whether to show the product list or the cart
@@ -17,20 +17,32 @@ function App() {
     state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
   );
 
-  const handleContinueShopping = () => {
-    setShowCart(false); // Hide cart, show product list
+  // Function to switch view to Cart
+  const handleGoToCart = () => {
+    setShowCart(true);
   };
 
-  const handleGoToCart = () => {
-    setShowCart(true); // Show cart, hide product list
+  // Function to switch view back to ProductList (passed to CartItems)
+  const handleContinueShopping = () => {
+    setShowCart(false);
   };
 
   return (
     <div className="App">
-      <header className="App-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', borderBottom: '1px solid #eee' }}>
-        <h1>Paradise Nursery</h1>
-        <button onClick={handleGoToCart} style={{ background: 'none', border: '1px solid #ccc', padding: '8px 15px', borderRadius: '5px', cursor: 'pointer' }}>
-          🛒 Cart ({totalCartItems})
+      {/* Header/Navbar - simplified and made consistent */}
+      <header className="App-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 20px', backgroundColor: '#4CAF50', color: 'white', fontSize: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt="" style={{ height: '50px' }} />
+            {/* Direct link to home/products page */}
+            <a href="/" style={{ color: 'white', textDecoration: 'none' }}>
+                <div>
+                    <h3 style={{ margin: 0, color: 'white' }}>Paradise Nursery</h3>
+                    <i style={{ color: 'white', fontSize: '0.9em' }}>Where Green Meets Serenity</i>
+                </div>
+            </a>
+        </div>
+        <button onClick={handleGoToCart} style={{ background: 'none', border: '1px solid #ccc', padding: '8px 15px', borderRadius: '5px', cursor: 'pointer', color: 'white' }}>
+          🛒 Cart ({totalCartItems}) {/* Display total items in cart */}
         </button>
       </header>
 
@@ -38,7 +50,7 @@ function App() {
         {showCart ? (
           <CartItems onContinueShopping={handleContinueShopping} />
         ) : (
-          <ProductList />
+          <ProductList onGoToCart={handleGoToCart} /> {/* Pass handleGoToCart to ProductList */}
         )}
       </main>
     </div>
@@ -46,6 +58,3 @@ function App() {
 }
 
 export default App;
-
-
-
