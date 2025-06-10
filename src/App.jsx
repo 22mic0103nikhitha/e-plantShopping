@@ -1,44 +1,46 @@
+// src/App.js
 
 import React, { useState } from 'react';
 import ProductList from './ProductList';
-import './App.css';
-import AboutUs from './AboutUs';
+import CartItems from './CartItems'; // Import CartItems component
+import { useSelector } from 'react-redux'; // Import useSelector to get total items for icon (optional)
+
+// Basic CSS for demonstration - you'll likely have this in App.css
+import './App.css'; 
 
 function App() {
-  
-  const [showProductList, setShowProductList] = useState(false);
+  // State to control whether to show the product list or the cart
+  const [showCart, setShowCart] = useState(false);
 
-  const handleGetStartedClick = () => {
-    setShowProductList(true);
+  // Get the total number of items in the cart from Redux state for a simple cart icon/count
+  const totalCartItems = useSelector((state) =>
+    state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
+  );
+
+  const handleContinueShopping = () => {
+    setShowCart(false); // Hide cart, show product list
   };
 
-  const handleHomeClick = () => {
-    setShowProductList(false);
+  const handleGoToCart = () => {
+    setShowCart(true); // Show cart, hide product list
   };
 
   return (
-    <div className="app-container">
-      <div className={`landing-page ${showProductList ? 'fade-out' : ''}`}>
-        <div className="background-image"></div>
-        <div className="content">
-         <div className="landing_content">
-         <h1>Welcome To Paradise Nursery</h1>
-          <div className="divider"></div>
-          <p>Where Green Meets Serenity</p>
-         
-          <button className="get-started-button" onClick={handleGetStartedClick}>
-            Get Started
-          </button>
-         </div>
-          <div className="aboutus_container">
-          <AboutUs/>
-          </div>
-          </div>
+    <div className="App">
+      <header className="App-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', borderBottom: '1px solid #eee' }}>
+        <h1>Paradise Nursery</h1>
+        <button onClick={handleGoToCart} style={{ background: 'none', border: '1px solid #ccc', padding: '8px 15px', borderRadius: '5px', cursor: 'pointer' }}>
+          🛒 Cart ({totalCartItems})
+        </button>
+      </header>
 
-      </div>
-      <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
-        <ProductList onHomeClick={handleHomeClick}/>
-      </div>
+      <main>
+        {showCart ? (
+          <CartItems onContinueShopping={handleContinueShopping} />
+        ) : (
+          <ProductList />
+        )}
+      </main>
     </div>
   );
 }
